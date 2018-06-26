@@ -58,22 +58,19 @@ public class HomeController {
         return "redirect:/";
     }
 
-    @GetMapping("/search")
-    public String getSearch()
-    {
-        return "potlucksearchform";
-    }
+//    @GetMapping("/search")
+//    public String getSearch()
+//    {
+//        return "potlucksearchform";
+//    }
 
-    @PostMapping("/search")
+    @RequestMapping("/search")
     public String showSearchResults(HttpServletRequest request, Model model)
     {
         //Get the search string from the result form
         String searchString = request.getParameter("search");
         model.addAttribute("search",searchString);
-        model.addAttribute("food", potluckRepository.findAllByFoodContainingIgnoreCase(searchString));
-        String searchString2 = request.getParameter("search");
-        model.addAttribute("search",searchString2);
-        model.addAttribute("name", potluckRepository.findAllByNameContainingIgnoreCase(searchString2));
+        model.addAttribute("potlucks", potluckRepository.findAllByFoodContainingIgnoreCase(searchString));
         return "potlucklist";
     }
 

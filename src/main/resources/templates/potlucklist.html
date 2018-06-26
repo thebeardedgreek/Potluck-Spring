@@ -26,34 +26,30 @@
                 </div>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form th:action="@{/search}" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
 </nav>
-<section class="app-section">
-    <table class="content-wrapper app-section" th:each="potluck: ${potlucks}">
-        <tr>
-            <th>Student Name: &nbsp;&nbsp;</th>
-        </tr>
-        <tr th:object="${potlucks}">
-            <td th:text="${potluck.name}"></td>
-        </tr>
-        <tr>
-            <th>Food: &nbsp;&nbsp;&nbsp;&nbsp;</th>
-        </tr>
-        <tr th:object="${potlucks}">
-            <td th:text="${potluck.food}"></td>
-        </tr>
-        <tr>
-            <td>
-                <a class="link" th:href="@{/update/{id}(id=${potluck.id})}">Update</a>
-                <a class="link" th:href="@{/detail/{id}(id=${potluck.id})}">Details</a>
-                <a class="link" th:href="@{/delete/{id}(id=${potluck.id})}">Delete</a>
-            </td>
-        </tr>
-    </table>
+<section>
+    <div class="app-section">
+        <table th:each="potluck: ${potlucks}" class="app-section content-wrapper">
+            <tr>
+                <th>Student Name: &nbsp;&nbsp;</th>
+                <td th:text="${potluck.name}"></td>
+            </tr>
+            <tr>
+                <th>Food: &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <td th:text="${potluck.food}"></td>
+            </tr>
+            <tr>
+                <td><a th:href="@{/update/{id}(id=${potluck.id})}">Update</a></td>
+                <td><a th:href="@{/detail/{id}(id=${potluck.id})}">Details</a></td>
+                <td><a th:href="@{/delete/{id}(id=${potluck.id})}">Delete</a></td>
+            </tr>
+        </table>
+    </div>
     <div class="content-wrapper app-section" th:if="${search}!=null" th:inline="text">You searched for [[${search}]]</div>
 </section>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
